@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+
 public class BookApplication {
     public static void printOptions() {
         System.out.println("=".repeat(20));
@@ -23,9 +24,9 @@ public class BookApplication {
                     "\nEdition: " + book.getEditionNumber() + "\nCopyright: " + book.getCopyright());
 
             // Single or Multi author
-            if(book.getAuthorList().size() > 1) {
+            if (book.getAuthorList().size() > 1) {
                 System.out.print("\nAuthors: ");
-                for(int i = 0; i < book.getAuthorList().size(); i++) {
+                for (int i = 0; i < book.getAuthorList().size(); i++) {
                     // Check for last author
                     if (i == book.getAuthorList().size() - 1) {
                         System.out.print(book.getAuthorList().get(i).getFirstName() + " " + book.getAuthorList().get(i).getLastName());
@@ -49,9 +50,9 @@ public class BookApplication {
                     "\nAuthorID: " + author.getAuthorID());
 
             // Single or Multi author
-            if(author.getBookList().size() > 1) {
+            if (author.getBookList().size() > 1) {
                 System.out.print("\nBooks: \n");
-                for(int i = 0; i < author.getBookList().size(); i++) {
+                for (int i = 0; i < author.getBookList().size(); i++) {
                     // Check for last book
                     if (i == author.getBookList().size() - 1) {
                         System.out.print("\t" + author.getBookList().get(i).getTitle());
@@ -187,6 +188,12 @@ public class BookApplication {
                 if (!lib.getAuthorIDs().contains(authorID)) {
                     System.out.println("AuthorID does not exist. Please enter an existing ID.");
                     authorID = -1;
+                }
+                for (Author author : existingAuthors) {
+                    if (author.getAuthorID() == authorID) {
+                        System.out.println("Error: Author already exists");
+                        authorID = -1;
+                    }
                 }
             } else {
                 System.out.println("AuthorID cannot be blank. Please enter a valid number.");

@@ -16,7 +16,7 @@ public class Library {
     }
 
     public void addBook(Book book) {
-        if(!bookList.contains(book)) {
+        if (!bookList.contains(book)) {
             bookList.add(book);
             BookDatabaseManager.createBook(book);
         }
@@ -36,11 +36,11 @@ public class Library {
             }
         }
         return null;
-    };
+    }
 
     public Author getAuthor(int authorID) {
         for (Author author : authorList) {
-            if (author.getAuthorID() == authorID ) {
+            if (author.getAuthorID() == authorID) {
                 return author;
             }
         }

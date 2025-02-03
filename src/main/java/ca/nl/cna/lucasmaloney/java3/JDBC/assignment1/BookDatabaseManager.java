@@ -14,11 +14,14 @@ public class BookDatabaseManager {
     public static void loadLibrary(Library lib) {
         String BOOKS_QUERY = "SELECT isbn, title, editionNumber, copyright FROM TITLES";
         String AUTHORS_QUERY = "SELECT authorID, firstName, lastName FROM AUTHORS";
-        String RELATIONSHIP_QUERY = "SELECT b.authorID, a.firstName, a.lastName, b.isbn, c.title, c.editionNumber, c.copyright FROM\n" + "authors a JOIN authorisbn b ON a.authorID = b.authorID\n" + "JOIN titles c ON c.isbn = b.isbn ";
+        String RELATIONSHIP_QUERY = "SELECT b.authorID, a.firstName, a.lastName, b.isbn, c.title, c.editionNumber, c.copyright FROM\n" +
+                "authors a JOIN authorisbn b ON a.authorID = b.authorID\n" +
+                "JOIN titles c ON c.isbn = b.isbn ";
 
         // Load all books from the titles table
         try {
-            Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
+            Connection conn = DriverManager.getConnection(
+                    DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(BOOKS_QUERY);
 
@@ -347,6 +350,24 @@ public class BookDatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error deleting author");
+        }
+    }
+
+    public static void deleteRelation(Book book, Author author) {
+        String DELETE_RELATION_QUERY = "DELETE FROM authorisbn WHERE authorID = ? AND isbn = ?";
+        System.out.println(DELETE_RELATION_QUERY);
+        try {
+            Connection conn = DriverManager.getConnection(
+                    DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
+            PreparedStatement pstmt = conn.prepareStatement(DELETE_RELATION_QUERY);
+            pstmt.setInt(1, author.getAuthorID());
+            pstmt.setString(2, book.getIsbn());
+            ResultSet rs = pstmt.executeQuery();
+
+            System.out.println("Deleted relation successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error deleting relation");
         }
     }
 }
