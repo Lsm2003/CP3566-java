@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * Properties used in the MariaDB connection process
  * */
 public class DatabaseProperties {
-    public static final String DATABASE_URL = "jdbc:mariadb://localhost:3306";
+    public static final String DATABASE_URL = "jdbc:mariadb://localhost:3306/";
 
     public static final String DATABASE_USER = "root";
 

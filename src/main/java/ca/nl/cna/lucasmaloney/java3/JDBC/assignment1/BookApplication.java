@@ -8,19 +8,20 @@ import java.util.Scanner;
 
 public class BookApplication {
     public static void printOptions() {
-        System.out.println("=".repeat(20));
-        System.out.println("0. Exit");
-        System.out.println("1. Show All Books");
-        System.out.println("2. Show All Authors");
-        System.out.println("3. Edit Book by ISBN");
-        System.out.println("4. Edit Author by ID");
-        System.out.println("5. Add New Book");
-        System.out.println("6. Delete Book by ISBN");
-        System.out.println("7. Delete Author by ID");
-        System.out.println("=".repeat(20));
+        System.out.println("=========================");
+        System.out.println("0 - Quit");
+        System.out.println("1 - Print All Books");
+        System.out.println("2 - Print All Authors");
+        System.out.println("3 - Edit Book by ISBN");
+        System.out.println("4 - Edit Author by ID");
+        System.out.println("5 - Add New Book");
+        System.out.println("6 - Delete Book by ISBN");
+        System.out.println("7 - Delete Author by ID");
+        System.out.println("=========================");
     }
 
     public static void showAllBooks(Library lib) {
+        System.out.println("=== Print All Books ===");
         for (Book book : lib.getBookList()) {
             System.out.print("Title: " + book.getTitle() + " " + "\nISBN: " + book.getIsbn() +
                     "\nEdition: " + book.getEditionNumber() + "\nCopyright: " + book.getCopyright());
@@ -47,6 +48,7 @@ public class BookApplication {
     }
 
     public static void showAllAuthors(Library lib) {
+        System.out.println("=== Print All Authors ===");
         for (Author author : lib.getAuthorList()) {
             System.out.print("Name: " + author.getFirstName() + " " + author.getLastName() +
                     "\nAuthorID: " + author.getAuthorID());
@@ -73,6 +75,7 @@ public class BookApplication {
     }
 
     public static void editBook(Library lib, String editIsbn, String newTitle, int newEdition, String newCopyright) {
+        System.out.println("=== Edit Book ===");
         Book currentBook = lib.getBook(editIsbn);
         Book newBook = new Book(editIsbn, newTitle, newEdition, newCopyright);
 
@@ -109,6 +112,7 @@ public class BookApplication {
     }
 
     public static void editAuthor(Library lib, int authorID, String firstName, String lastName) {
+        System.out.println("=== Edit Author ===");
         Author currentAuthor = lib.getAuthor(authorID);
         Author newAuthor = new Author(authorID, firstName, lastName);
 
@@ -202,12 +206,12 @@ public class BookApplication {
         String authorChoice = "";
 
         while (newAuthorList.isEmpty() || !Objects.equals(authorChoice, "0")) { // Ensures at least one author is added
-            System.out.println("=".repeat(20));
-            System.out.println("0. Exit");
-            System.out.println("1. Add existing author");
-            System.out.println("2. Add new author");
+            System.out.println("=========================");
+            System.out.println("0 - Exit");
+            System.out.println("1 - Add existing author");
+            System.out.println("2 - Add new author");
             System.out.println("Choose an option: ");
-            System.out.println("=".repeat(20));
+            System.out.println("=========================");
             authorChoice = scanner.nextLine();
 
             if (Objects.equals(authorChoice, "1")) {
@@ -369,6 +373,6 @@ public class BookApplication {
             System.out.println("Choose an option: ");
             choice = scanner.nextLine();
         }
-        System.out.println("Exiting...");
+        System.out.println("Ending Application...");
     }
 }

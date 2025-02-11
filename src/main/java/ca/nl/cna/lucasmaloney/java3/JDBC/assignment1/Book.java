@@ -28,7 +28,6 @@ public class Book {
 
     /**
      * Gets the ISBN of the book.
-     *
      * @return The ISBN of the book.
      */
     public String getIsbn() {
@@ -37,7 +36,6 @@ public class Book {
 
     /**
      * Gets the title of the book.
-     *
      * @return The title of the book.
      */
     public String getTitle() {
@@ -46,7 +44,6 @@ public class Book {
 
     /**
      * Gets the edition number of the book.
-     *
      * @return The edition number of the book.
      */
     public int getEditionNumber() {
@@ -55,7 +52,6 @@ public class Book {
 
     /**
      * Gets the copyright information of the book.
-     *
      * @return The copyright information of the book.
      */
     public String getCopyright() {
@@ -64,7 +60,6 @@ public class Book {
 
     /**
      * Gets the list of authors associated with the book.
-     *
      * @return A list of authors for this book.
      */
     public List<Author> getAuthorList() {
@@ -73,7 +68,6 @@ public class Book {
 
     /**
      * Sets the title of the book.
-     *
      * @param title The new title of the book.
      */
     public void setTitle(String title) {
@@ -82,7 +76,6 @@ public class Book {
 
     /**
      * Sets the edition number of the book.
-     *
      * @param editionNumber The new edition number of the book.
      */
     public void setEditionNumber(int editionNumber) {
@@ -91,7 +84,6 @@ public class Book {
 
     /**
      * Sets the copyright information of the book.
-     *
      * @param copyright The new copyright information.
      */
     public void setCopyright(String copyright) {
@@ -101,7 +93,6 @@ public class Book {
     /**
      * Adds an author to the book. If the author is not already associated with this book,
      * it also adds the book to the author's list.
-     *
      * @param author The author to be added.
      */
     public void addAuthor(Author author) {

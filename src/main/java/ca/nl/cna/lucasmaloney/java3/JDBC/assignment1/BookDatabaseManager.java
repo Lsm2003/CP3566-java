@@ -16,7 +16,6 @@ public class BookDatabaseManager {
 
     /**
      * Loads book and author data from a MariaDB database and populates the provided library.
-     *
      * @param lib The library object to be populated with books, authors, and their relationships.
      */
     public static void loadLibrary(Library lib) {
@@ -237,7 +236,6 @@ public class BookDatabaseManager {
 
     /**
      * Retrieves all books from the database.
-     *
      * @return A list of Book objects representing all books in the database.
      */
     public static List<Book> getAllBooks() {
@@ -312,7 +310,6 @@ public class BookDatabaseManager {
 
     /**
      * Retrieves all authors from the database.
-     *
      * @return a List of Author objects representing all authors retrieved from the database.
      */
     public static List<Author> getAllAuthors() {

@@ -9,7 +9,6 @@ public class Library {
 
     /**
      * Returns the list of books in the library.
-     *
      * @return a list of Book objects representing the books in the library.
      */
     public List<Book> getBookList() {
@@ -18,7 +17,6 @@ public class Library {
 
     /**
      * Returns the list of authors in the library.
-     *
      * @return a list of Author objects representing the authors in the library.
      */
     public List<Author> getAuthorList() {
@@ -83,7 +81,6 @@ public class Library {
 
     /**
      * Retrieves a list of all author IDs in the library.
-     *
      * @return a list of author IDs.
      */
     public List<Integer> getAuthorIDs() {

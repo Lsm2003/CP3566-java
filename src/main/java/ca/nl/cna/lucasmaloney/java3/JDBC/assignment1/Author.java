@@ -25,7 +25,6 @@ public class Author {
 
     /**
      * Gets the unique author ID.
-     *
      * @return The author's unique ID.
      */
     public int getAuthorID() {
@@ -34,7 +33,6 @@ public class Author {
 
     /**
      * Gets the author's first name.
-     *
      * @return The first name of the author.
      */
     public String getFirstName() {
@@ -43,7 +41,6 @@ public class Author {
 
     /**
      * Gets the author's last name.
-     *
      * @return The last name of the author.
      */
     public String getLastName() {
@@ -52,7 +49,6 @@ public class Author {
 
     /**
      * Gets the list of books written by the author.
-     *
      * @return A list of books authored by this author.
      */
     public List<Book> getBookList() {
@@ -61,7 +57,6 @@ public class Author {
 
     /**
      * Sets the author's first name.
-     *
      * @param firstName The new first name of the author.
      */
     public void setFirstName(String firstName) {
@@ -70,7 +65,6 @@ public class Author {
 
     /**
      * Sets the author's last name.
-     *
      * @param lastName The new last name of the author.
      */
     public void setLastName(String lastName) {
@@ -80,7 +74,6 @@ public class Author {
     /**
      * Adds a book to the author's book list.
      * If the book does not already have this author in its author list, it adds this author to the book as well.
-     *
      * @param book The book to be added.
      */
     public void addBook(Book book) {
