@@ -9,36 +9,26 @@ import java.util.List;
 
 public class BookDatabaseManager {
 
-    /**
-     * The name of the database to connect to.
-     */
     public static final String DB_NAME = "books";
 
     /**
-     * Loads book and author data from a MariaDB database and populates the provided library.
-     * @param lib The library object to be populated with books, authors, and their relationships.
+     * Loads data from database and populates the library.
+     * @param lib The library object to be populated
      */
     public static void loadLibrary(Library lib) {
         String BOOKS_QUERY = "SELECT isbn, title, editionNumber, copyright FROM TITLES";
         String AUTHORS_QUERY = "SELECT authorID, firstName, lastName FROM AUTHORS";
-        String RELATIONSHIP_QUERY = "SELECT b.authorID, a.firstName, a.lastName, b.isbn, c.title, c.editionNumber, c.copyright FROM\n" +
-                "authors a JOIN authorisbn b ON a.authorID = b.authorID\n" +
-                "JOIN titles c ON c.isbn = b.isbn ";
+        String RELATIONSHIP_QUERY = "SELECT b.authorID, a.firstName, a.lastName, b.isbn, c.title, c.editionNumber, c.copyright FROM\n" + "authors a JOIN authorisbn b ON a.authorID = b.authorID\n" + "JOIN titles c ON c.isbn = b.isbn ";
 
-        // Load all books from the titles table
+        // Load books from titles table
         try {
             Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(BOOKS_QUERY);
 
-            // Extract and add books to the library
+            // add books to the library
             while (rs.next()) {
-                Book currentBook = new Book(
-                        rs.getString("isbn"),
-                        rs.getString("title"),
-                        rs.getInt("editionNumber"),
-                        rs.getString("copyright")
-                );
+                Book currentBook = new Book(rs.getString("isbn"), rs.getString("title"), rs.getInt("editionNumber"), rs.getString("copyright"));
                 lib.getBookList().add(currentBook);
             }
             conn.close();
@@ -46,7 +36,7 @@ public class BookDatabaseManager {
             e.printStackTrace();
         }
 
-        // Load all authors from the authors table
+        // Load authors from authors table
         try {
             Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             Statement stmt = conn.createStatement();
@@ -54,11 +44,7 @@ public class BookDatabaseManager {
 
             // Extract and add authors to the library
             while (rs.next()) {
-                Author currentAuthor = new Author(
-                        rs.getInt("authorID"),
-                        rs.getString("firstName"),
-                        rs.getString("lastName")
-                );
+                Author currentAuthor = new Author(rs.getInt("authorID"), rs.getString("firstName"), rs.getString("lastName"));
                 lib.getAuthorList().add(currentAuthor);
             }
             conn.close();
@@ -95,10 +81,10 @@ public class BookDatabaseManager {
     // CREATE methods
 
     /**
-     * Inserts a new book record into the database. Adds relationship between book and its authors
+     * adds new book to the database. Adds relationship between book and its author
      *
-     * @param book The book object containing the details of the book to be added.
-     * @param lib The library object containing all books and authors
+     * @param book The book object containing the details of the book to be added
+     * @param lib The library object containing books and authors
      */
     public static void createBook(Book book, Library lib) {
         String CREATE_BOOK_QUERY = "INSERT INTO titles VALUES (?, ?, ?, ?)";
@@ -115,7 +101,7 @@ public class BookDatabaseManager {
 
             pstmt.executeUpdate();
 
-            System.out.println("Created book successfully!");
+            System.out.println("New Book Created");
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,10 +116,10 @@ public class BookDatabaseManager {
     }
 
     /**
-     * Inserts a new author record into the database.
+     * adds new author record to database
      *
-     * @param author The Author object containing the details of the author to be added.
-     * @param lib The library object containing all books and authors
+     * @param author The Author object containing the details of the author to be added
+     * @param lib The library object containing books and authors
      */
     public static void createAuthor(Author author, Library lib) {
         String CREATE_AUTHOR_QUERY = "INSERT INTO authors VALUES (?, ?, ?)";
@@ -165,10 +151,10 @@ public class BookDatabaseManager {
 
 
     /**
-     * Creates a relationship between a book and an author in the database.
+     * Creates relationship between book and author
      *
-     * @param book   The Book object representing the book.
-     * @param author The Author object representing the author.
+     * @param book   The Book object representing the book
+     * @param author The Author object representing the author
      */
     public static void createRelation(Book book, Author author) {
         String CREATE_RELATION_QUERY = "INSERT INTO authorisbn VALUES (?, ?)";
@@ -183,7 +169,7 @@ public class BookDatabaseManager {
 
             pstmt.executeUpdate();
 
-            System.out.println("Created relation successfully!");
+            System.out.println("Created relation");
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -195,10 +181,10 @@ public class BookDatabaseManager {
     // GET Methods
 
     /**
-     * Retrieves a book from the database using its ISBN.
+     * Retrieves a book using ISBN
      *
-     * @param isbn The ISBN of the book to retrieve.
-     * @return The Book object if found, otherwise null.
+     * @param isbn The ISBN of the book to retrieve
+     * @return The Book object if found (null by default)
      */
     public static Book getBook(String isbn) {
         String GET_BOOK_QUERY = "SELECT * FROM titles WHERE isbn = ?";
@@ -213,7 +199,7 @@ public class BookDatabaseManager {
             pstmt.setString(1, isbn);
             ResultSet rs = pstmt.executeQuery();
 
-            // If a book is found, create a Book object
+            // If a book is found, create Book object
             if (rs.next()) {
                 book = new Book(
                         rs.getString("isbn"),
@@ -235,8 +221,8 @@ public class BookDatabaseManager {
 
 
     /**
-     * Retrieves all books from the database.
-     * @return A list of Book objects representing all books in the database.
+     * Retrieves all books from the database
+     * @return A list of Book objects
      */
     public static List<Book> getAllBooks() {
         String GET_BOOKS_QUERY = "SELECT * FROM titles";
@@ -270,10 +256,10 @@ public class BookDatabaseManager {
     }
 
     /**
-     * Retrieves an author from the database using their author ID.
+     * Retrieves author using authorID
      *
-     * @param authorID The ID of the author to retrieve.
-     * @return The {@code Author} object if found, otherwise null.
+     * @param authorID The ID of the author
+     * @return The Author object if found (Default null)
      */
     public static Author getAuthor(String authorID) {
         String GET_AUTHOR_QUERY = "SELECT * FROM authors WHERE authorID = ?";
@@ -309,7 +295,7 @@ public class BookDatabaseManager {
 
 
     /**
-     * Retrieves all authors from the database.
+     * Retrieves all authors
      * @return a List of Author objects representing all authors retrieved from the database.
      */
     public static List<Author> getAllAuthors() {
@@ -318,8 +304,7 @@ public class BookDatabaseManager {
 
         List<Author> authors = new ArrayList<Author>();
         try {
-            Connection conn = DriverManager.getConnection(
-                    DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
+            Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             PreparedStatement pstmt = conn.prepareStatement(GET_AUTHORS_QUERY);
             ResultSet rs = pstmt.executeQuery();
 
@@ -343,18 +328,17 @@ public class BookDatabaseManager {
     // UPDATE Methods
 
     /**
-     * Updates the details of a book in the database.
+     * Updates a book
      *
-     * @param isbn the ISBN of the book to be updated.
-     * @param book the {@link Book} object containing the updated book details.
+     * @param isbn the ISBN of the book
+     * @param book the Book object containing updated book details
      */
     public static void updateBook(String isbn, Book book) {
         String UPDATE_BOOK_QUERY = "UPDATE titles SET isbn = ?, title = ?, editionNumber = ?, copyright = ? WHERE isbn = ?";
         System.out.println(UPDATE_BOOK_QUERY);
 
         try {
-            Connection conn = DriverManager.getConnection(
-                    DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
+            Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             PreparedStatement pstmt = conn.prepareStatement(UPDATE_BOOK_QUERY);
             pstmt.setString(1, book.getIsbn());
             pstmt.setString(2, book.getTitle());
@@ -374,18 +358,17 @@ public class BookDatabaseManager {
 
 
     /**
-     * Updates the details of an author in the database.
+     * Updates an author
      *
-     * @param authorID the ID of the author to be updated.
-     * @param author the {@link Author} object containing the updated author details.
+     * @param authorID the ID of the author
+     * @param author the Author object containing the updated author details
      */
     public static void updateAuthor(int authorID, Author author) {
         String UPDATE_BOOK_QUERY = "UPDATE authors SET authorID = ?, firstName = ?, lastName = ? WHERE authorID = ?";
         System.out.println(UPDATE_BOOK_QUERY);
 
         try {
-            Connection conn = DriverManager.getConnection(
-                    DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
+            Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             PreparedStatement pstmt = conn.prepareStatement(UPDATE_BOOK_QUERY);
             pstmt.setInt(1, author.getAuthorID());
             pstmt.setString(2, author.getFirstName());
@@ -406,10 +389,10 @@ public class BookDatabaseManager {
     // DELETE Methods
 
     /**
-     * Deletes a book from the database.
+     * Deletes a book
      *
-     * @param book the book to be deleted.
-     * @param lib The library object containing all books and authors
+     * @param book the book to be deleted
+     * @param lib The library object containing books and authors
      */
     public static void deleteBook(Book book, Library lib) {
         String DELETE_BOOK_QUERY = "DELETE FROM titles WHERE isbn = ?";
@@ -424,8 +407,7 @@ public class BookDatabaseManager {
         }
 
         try {
-            Connection conn = DriverManager.getConnection(
-                    DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
+            Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             PreparedStatement pstmt = conn.prepareStatement(DELETE_BOOK_QUERY);
             pstmt.setString(1, book.getIsbn());
             pstmt.executeUpdate();
@@ -443,10 +425,10 @@ public class BookDatabaseManager {
 
 
     /**
-     * Deletes an author from the database.
+     * Deletes an author
      *
-     * @param author the author to be deleted.
-     * @param lib The library object containing all books and authors
+     * @param author the author to be deleted
+     * @param lib The library object containing books and authors
      */
     public static void deleteAuthor(Author author, Library lib) {
         String DELETE_AUTHOR_QUERY = "DELETE FROM authors WHERE authorID = ?";
@@ -461,8 +443,7 @@ public class BookDatabaseManager {
         }
 
         try {
-            Connection conn = DriverManager.getConnection(
-                    DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
+            Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             PreparedStatement pstmt = conn.prepareStatement(DELETE_AUTHOR_QUERY);
             pstmt.setInt(1, author.getAuthorID());
             pstmt.executeUpdate();
@@ -478,17 +459,16 @@ public class BookDatabaseManager {
 
 
     /**
-     * Deletes a relationship between a book and an author from the database.
+     * Deletes a relationship between a book and an author
      *
-     * @param book the Book object representing the book involved in the relation.
-     * @param author the Author object representing the author involved in the relation.
+     * @param book the Book object representing the book
+     * @param author the Author object representing the author
      */
     public static void deleteRelation(Book book, Author author) {
         String DELETE_RELATION_QUERY = "DELETE FROM authorisbn WHERE authorID = ? AND isbn = ?";
         System.out.println(DELETE_RELATION_QUERY);
         try {
-            Connection conn = DriverManager.getConnection(
-                    DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
+            Connection conn = DriverManager.getConnection(DatabaseProperties.DATABASE_URL + DB_NAME, DatabaseProperties.DATABASE_USER, DatabaseProperties.DATABASE_PASSWORD);
             PreparedStatement pstmt = conn.prepareStatement(DELETE_RELATION_QUERY);
             pstmt.setInt(1, author.getAuthorID());
             pstmt.setString(2, book.getIsbn());

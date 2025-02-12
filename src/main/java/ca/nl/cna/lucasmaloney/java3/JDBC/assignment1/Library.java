@@ -8,26 +8,24 @@ public class Library {
     private List<Author> authorList = new ArrayList<Author>();
 
     /**
-     * Returns the list of books in the library.
-     * @return a list of Book objects representing the books in the library.
+     * Returns list of books in the library
+     * @return list of Book objects
      */
     public List<Book> getBookList() {
         return bookList;
     }
 
     /**
-     * Returns the list of authors in the library.
-     * @return a list of Author objects representing the authors in the library.
+     * Returns list of authors
+     * @return list of Author objects
      */
     public List<Author> getAuthorList() {
         return authorList;
     }
 
     /**
-     * Adds a book to the library. If the book is not already in the library,
-     * it is added to the book list and the database is updated.
-     *
-     * @param book the Book object to be added to the library.
+     * Adds a book to the library
+     * @param book the Book object to be added
      */
     public void addBook(Book book) {
         if (!bookList.contains(book)) {
@@ -37,10 +35,8 @@ public class Library {
     }
 
     /**
-     * Adds an author to the library. If the author is not already in the library,
-     * the author is added to the author list and the database is updated.
-     *
-     * @param author the Author object to be added to the library.
+     * Adds an author to the library
+     * @param author the Author object to be added
      */
     public void addAuthor(Author author) {
         if (!authorList.contains(author)) {
@@ -50,10 +46,9 @@ public class Library {
     }
 
     /**
-     * Retrieves a book from the library by its ISBN.
-     *
-     * @param isbn the ISBN of the book to be retrieved.
-     * @return the Book object with the matching ISBN, or {@code null} if no such book exists.
+     * Retrieves a book from the library by its ISBN
+     * @param isbn the ISBN of the book
+     * @return the Book object with the matching ISBN
      */
     public Book getBook(String isbn) {
         for (Book book : bookList) {
@@ -65,10 +60,10 @@ public class Library {
     }
 
     /**
-     * Retrieves an author from the library by their author ID.
+     * Retrieves an author from the library by their authorID
      *
-     * @param authorID the ID of the author to be retrieved.
-     * @return the {@link Author} object with the matching author ID, or {@code null} if no such author exists.
+     * @param authorID the ID of the author
+     * @return the Author object with the matching authorID
      */
     public Author getAuthor(int authorID) {
         for (Author author : authorList) {
@@ -80,8 +75,8 @@ public class Library {
     }
 
     /**
-     * Retrieves a list of all author IDs in the library.
-     * @return a list of author IDs.
+     * Retrieves list of all authorIDs in the library
+     * @return a list of authorIDs
      */
     public List<Integer> getAuthorIDs() {
         List<Integer> authorIDs = new ArrayList<>();
@@ -92,10 +87,10 @@ public class Library {
     }
 
     /**
-     * Updates the details of a book in the library by its ISBN.
+     * Updates a book in the library by its ISBN
      *
-     * @param isbn the ISBN of the book to be updated.
-     * @param book the Book object containing the updated details.
+     * @param isbn the ISBN of the book
+     * @param book the Book object containing the updated details
      */
     public void setBook(String isbn, Book book) {
         Book currentBook = getBook(isbn);
@@ -117,10 +112,10 @@ public class Library {
     }
 
     /**
-     * Updates the details of an author in the library by their author ID.
+     * Updates the details of an author by their author ID.
      *
-     * @param authorID the ID of the author to be updated.
-     * @param author the Author object containing the updated details.
+     * @param authorID the ID of the author
+     * @param author the Author object containing the updated details
      */
     public void setAuthor(int authorID, Author author) {
         Author currentAuthor = getAuthor(authorID);
@@ -141,9 +136,8 @@ public class Library {
     }
 
     /**
-     * Deletes a book from the library by its ISBN.
-     *
-     * @param isbn the ISBN of the book to be deleted.
+     * Deletes a book by its ISBN
+     * @param isbn the ISBN of the book to be deleted
      */
     public void deleteBook(String isbn) {
         Book currentBook = getBook(isbn);
@@ -153,9 +147,8 @@ public class Library {
     }
 
     /**
-     * Deletes an author from the library by their author ID.
-     *
-     * @param authorID the ID of the author to be deleted.
+     * Deletes an author by their authorID
+     * @param authorID the ID of the author
      */
     public void deleteAuthor(int authorID) {
         Author currentAuthor = getAuthor(authorID);

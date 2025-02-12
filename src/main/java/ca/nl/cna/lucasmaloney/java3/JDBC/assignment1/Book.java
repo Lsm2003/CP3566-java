@@ -11,12 +11,12 @@ public class Book {
     private List<Author> authorList;
 
     /**
-     * Constructs a Book object with the specified details.
+     * Constructs a Book object
      *
-     * @param isbn          The International Standard Book Number (ISBN) of the book.
-     * @param title         The title of the book.
-     * @param editionNumber The edition number of the book.
-     * @param copyright     The copyright information of the book.
+     * @param isbn          The International Standard Book Number (ISBN)
+     * @param title         The title
+     * @param editionNumber The edition number
+     * @param copyright     The copyright information
      */
     public Book(String isbn, String title, int editionNumber, String copyright) {
         this.isbn = isbn;
@@ -27,64 +27,64 @@ public class Book {
     }
 
     /**
-     * Gets the ISBN of the book.
-     * @return The ISBN of the book.
+     * Gets the ISBN
+     * @return The ISBN
      */
     public String getIsbn() {
         return isbn;
     }
 
     /**
-     * Gets the title of the book.
-     * @return The title of the book.
+     * Gets the title
+     * @return The title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * Gets the edition number of the book.
-     * @return The edition number of the book.
+     * Gets the edition number
+     * @return The edition number
      */
     public int getEditionNumber() {
         return editionNumber;
     }
 
     /**
-     * Gets the copyright information of the book.
-     * @return The copyright information of the book.
+     * Gets the copyright information
+     * @return The copyright information
      */
     public String getCopyright() {
         return copyright;
     }
 
     /**
-     * Gets the list of authors associated with the book.
-     * @return A list of authors for this book.
+     * Gets the list of authors associated with the book
+     * @return A list of authors for this book
      */
     public List<Author> getAuthorList() {
         return authorList;
     }
 
     /**
-     * Sets the title of the book.
-     * @param title The new title of the book.
+     * Sets the title
+     * @param title The new title
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * Sets the edition number of the book.
-     * @param editionNumber The new edition number of the book.
+     * Sets the edition number
+     * @param editionNumber The new edition number
      */
     public void setEditionNumber(int editionNumber) {
         this.editionNumber = editionNumber;
     }
 
     /**
-     * Sets the copyright information of the book.
-     * @param copyright The new copyright information.
+     * Sets the copyright information
+     * @param copyright The new copyright information
      */
     public void setCopyright(String copyright) {
         this.copyright = copyright;
@@ -92,8 +92,8 @@ public class Book {
 
     /**
      * Adds an author to the book. If the author is not already associated with this book,
-     * it also adds the book to the author's list.
-     * @param author The author to be added.
+     * it also adds the book to the author's list
+     * @param author The author
      */
     public void addAuthor(Author author) {
         this.authorList.add(author);
