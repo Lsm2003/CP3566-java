@@ -1,7 +1,6 @@
 package ca.nl.cna.lucasmaloney.java3.JDBC.assignment1;
 
 import ca.nl.cna.lucasmaloney.java3.JDBC.DatabaseProperties;
-import org.checkerframework.checker.units.qual.A;
 
 import java.sql.*;
 import java.util.ArrayList;
